@@ -1,0 +1,294 @@
+/* ================================
+   KEYSTONE - SETTINGS
+   ================================ */
+
+.settings-page {
+  min-height: 100vh;
+  padding: 45px 60px 60px;
+  background: #f5f7fb;
+  color: #0f172a;
+}
+
+.settings-container {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.settings-label {
+  margin: 0 0 8px;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.settings-header h1 {
+  margin: 0 0 8px;
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.settings-header p:last-child {
+  margin: 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.settings-back-button {
+  padding: 12px 18px;
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-back-button:hover {
+  color: #2563eb;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* MAIN CARD */
+
+.settings-card {
+  background: #ffffff;
+  border: 1px solid #e5eaf2;
+  border-radius: 22px;
+  padding: 32px;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+}
+
+/* SECTION */
+
+.settings-section {
+  padding: 4px 0;
+}
+
+.settings-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.settings-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+}
+
+.account-icon {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.settings-section-heading h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.settings-section-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* SETTINGS ROW */
+
+.setting-row {
+  min-height: 72px;
+  padding: 16px 0;
+  border-top: 1px solid #edf1f7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.setting-row strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.setting-row span {
+  display: block;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* TOGGLE */
+
+.toggle-button {
+  position: relative;
+  width: 48px;
+  height: 27px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.toggle-button span {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.18);
+  transition: transform 0.2s ease;
+}
+
+.toggle-button.enabled {
+  background: #2563eb;
+}
+
+.toggle-button.enabled span {
+  transform: translateX(21px);
+}
+
+/* DIVIDER */
+
+.settings-divider {
+  height: 1px;
+  margin: 30px 0;
+  background: #edf1f7;
+}
+
+/* ACCOUNT INFO */
+
+.account-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.account-info > div {
+  padding: 17px;
+  background: #f8fafc;
+  border: 1px solid #edf1f7;
+  border-radius: 13px;
+}
+
+.account-info span {
+  display: block;
+  margin-bottom: 7px;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.account-info strong {
+  display: block;
+  color: #334155;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+/* SESSION */
+
+.danger-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.danger-section h2 {
+  margin: 0 0 5px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.danger-section p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.settings-logout-button {
+  padding: 11px 18px;
+  background: #ffffff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-logout-button:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+  .settings-page {
+    padding: 28px 18px 40px;
+  }
+
+  .settings-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings-header h1 {
+    font-size: 32px;
+  }
+
+  .settings-back-button {
+    width: 100%;
+  }
+
+  .settings-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .account-info {
+    grid-template-columns: 1fr;
+  }
+
+  .danger-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings-logout-button {
+    width: 100%;
+  }
+}
