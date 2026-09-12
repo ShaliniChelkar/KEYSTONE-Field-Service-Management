@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./TechnicianDashboard.css";
-
-const API_URL = "http://localhost:8080/api";
 
 function TechnicianDashboard() {
   const navigate = useNavigate();
@@ -98,8 +96,8 @@ function TechnicianDashboard() {
         return;
       }
 
-      const response = await axios.get(
-        `${API_URL}/requests/technician/${id}`
+      const response = await api.get(
+        `/requests/technician/${id}`
       );
 
       setRequests(response.data || []);
@@ -112,7 +110,7 @@ function TechnicianDashboard() {
         );
       } else {
         setError(
-          "Unable to connect to the server. Make sure Spring Boot is running."
+          "Unable to connect to the server. Please try again."
         );
       }
     } finally {
@@ -130,11 +128,11 @@ function TechnicianDashboard() {
 
       const [timeResponse, partsResponse] =
         await Promise.all([
-          axios.get(
-            `${API_URL}/time-logs/request/${requestId}`
+          api.get(
+            `/time-logs/request/${requestId}`
           ),
-          axios.get(
-            `${API_URL}/part-usages/request/${requestId}`
+          api.get(
+            `/part-usages/request/${requestId}`
           ),
         ]);
 
@@ -149,6 +147,7 @@ function TechnicianDashboard() {
       }));
     } catch (err) {
       console.error("Error loading job details:", err);
+
       setError(
         "Unable to load time logs and parts information."
       );
@@ -189,8 +188,8 @@ function TechnicianDashboard() {
       setError("");
       setSuccess("");
 
-      await axios.put(
-        `${API_URL}/requests/${requestId}/status/${newStatus}`,
+      await api.put(
+        `/requests/${requestId}/status/${newStatus}`,
         {},
         {
           headers: {
@@ -230,7 +229,10 @@ function TechnicianDashboard() {
         fetchRequests();
       }, 300);
     } catch (err) {
-      console.error("Error updating request status:", err);
+      console.error(
+        "Error updating request status:",
+        err
+      );
 
       setError(
         err.response?.data?.message ||
@@ -279,8 +281,8 @@ function TechnicianDashboard() {
           "Service work performed",
       };
 
-      await axios.post(
-        `${API_URL}/time-logs`,
+      await api.post(
+        "/time-logs",
         payload
       );
 
@@ -313,15 +315,18 @@ function TechnicianDashboard() {
       setError("");
       setSuccess("");
 
-      await axios.delete(
-        `${API_URL}/time-logs/${logId}`
+      await api.delete(
+        `/time-logs/${logId}`
       );
 
       setSuccess("Time log deleted successfully.");
 
       await loadJobDetails(requestId);
     } catch (err) {
-      console.error("Error deleting time log:", err);
+      console.error(
+        "Error deleting time log:",
+        err
+      );
 
       setError("Unable to delete time log.");
     }
@@ -385,8 +390,8 @@ function TechnicianDashboard() {
         notes: partForm.notes.trim() || null,
       };
 
-      await axios.post(
-        `${API_URL}/part-usages`,
+      await api.post(
+        "/part-usages",
         payload
       );
 
@@ -424,8 +429,8 @@ function TechnicianDashboard() {
       setError("");
       setSuccess("");
 
-      await axios.delete(
-        `${API_URL}/part-usages/${partId}`
+      await api.delete(
+        `/part-usages/${partId}`
       );
 
       setSuccess("Part usage deleted successfully.");
@@ -586,28 +591,36 @@ function TechnicianDashboard() {
 
           <button
             className="nav-item active"
-            onClick={() => navigate("/technician")}
+            onClick={() =>
+              navigate("/technician")
+            }
           >
             🏠 Dashboard
           </button>
 
           <button
             className="nav-item"
-            onClick={() => navigate("/technician")}
+            onClick={() =>
+              navigate("/technician")
+            }
           >
             📋 My Service Requests
           </button>
 
           <button
             className="nav-item"
-            onClick={() => navigate("/technician")}
+            onClick={() =>
+              navigate("/technician")
+            }
           >
             🔧 My Assignments
           </button>
 
           <button
             className="nav-item"
-            onClick={() => navigate("/profile")}
+            onClick={() =>
+              navigate("/profile")
+            }
           >
             👤 My Profile
           </button>
@@ -618,7 +631,9 @@ function TechnicianDashboard() {
 
           <button
             className="nav-item"
-            onClick={() => navigate("/settings")}
+            onClick={() =>
+              navigate("/settings")
+            }
           >
             ⚙️ Settings
           </button>
@@ -700,6 +715,7 @@ function TechnicianDashboard() {
 
             <div>
               <p>Total Assigned</p>
+
               <h2>
                 {loading ? "..." : totalRequests}
               </h2>
@@ -711,6 +727,7 @@ function TechnicianDashboard() {
 
             <div>
               <p>Assigned</p>
+
               <h2>
                 {loading ? "..." : assignedCount}
               </h2>
@@ -722,8 +739,11 @@ function TechnicianDashboard() {
 
             <div>
               <p>In Progress</p>
+
               <h2>
-                {loading ? "..." : inProgressCount}
+                {loading
+                  ? "..."
+                  : inProgressCount}
               </h2>
             </div>
           </div>
@@ -733,8 +753,11 @@ function TechnicianDashboard() {
 
             <div>
               <p>Completed</p>
+
               <h2>
-                {loading ? "..." : completedCount}
+                {loading
+                  ? "..."
+                  : completedCount}
               </h2>
             </div>
           </div>
@@ -767,7 +790,9 @@ function TechnicianDashboard() {
           {/* LOADING */}
           {loading && (
             <div className="empty-state">
-              <div className="empty-icon">⏳</div>
+              <div className="empty-icon">
+                ⏳
+              </div>
 
               <h3>Loading requests...</h3>
 
@@ -781,7 +806,9 @@ function TechnicianDashboard() {
           {/* ERROR */}
           {!loading && error && (
             <div className="empty-state">
-              <div className="empty-icon">⚠️</div>
+              <div className="empty-icon">
+                ⚠️
+              </div>
 
               <h3>Unable to load requests</h3>
 
@@ -802,7 +829,9 @@ function TechnicianDashboard() {
             requests.length === 0 && (
               <div className="empty-state">
 
-                <div className="empty-icon">📋</div>
+                <div className="empty-icon">
+                  📋
+                </div>
 
                 <h3>No requests assigned</h3>
 

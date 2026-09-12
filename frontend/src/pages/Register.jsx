@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import api from "../api";
 
 function Register() {
   const navigate = useNavigate();
@@ -30,8 +30,8 @@ function Register() {
     setError("");
 
     try {
-      await axios.post(
-        "http://localhost:8080/api/auth/register",
+      await api.post(
+        "/auth/register",
         formData
       );
 
@@ -62,11 +62,21 @@ function Register() {
         <h2>Create Account</h2>
         <p className="subtitle">Register as a customer</p>
 
-        {message && <div className="success-message">{message}</div>}
-        {error && <div className="error-message">{error}</div>}
+        {message && (
+          <div className="success-message">
+            {message}
+          </div>
+        )}
+
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleRegister}>
           <label>Full Name</label>
+
           <input
             type="text"
             name="name"
@@ -77,6 +87,7 @@ function Register() {
           />
 
           <label>Email</label>
+
           <input
             type="email"
             name="email"
@@ -87,6 +98,7 @@ function Register() {
           />
 
           <label>Phone</label>
+
           <input
             type="tel"
             name="phone"
@@ -97,6 +109,7 @@ function Register() {
           />
 
           <label>Password</label>
+
           <input
             type="password"
             name="password"
@@ -106,11 +119,16 @@ function Register() {
             required
           />
 
-          <button type="submit">Create Account</button>
+          <button type="submit">
+            Create Account
+          </button>
         </form>
 
         <p className="register-link">
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account?{" "}
+          <Link to="/login">
+            Login
+          </Link>
         </p>
       </div>
     </div>

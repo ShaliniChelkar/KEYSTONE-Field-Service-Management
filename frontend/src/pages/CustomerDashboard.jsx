@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 function CustomerDashboard() {
   const navigate = useNavigate();
@@ -42,11 +42,11 @@ function CustomerDashboard() {
         return;
       }
 
-      const response = await axios.get(
-        `http://localhost:8080/api/requests/customer/${customerId}`
+      const response = await api.get(
+        `/requests/customer/${customerId}`
       );
 
-      setRequests(response.data);
+      setRequests(response.data || []);
     } catch (error) {
       console.error(
         "Error loading customer requests:",

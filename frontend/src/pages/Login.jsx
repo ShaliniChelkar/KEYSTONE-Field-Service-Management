@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import api from "../api";
 import "./Login.css";
 
 function Login() {
@@ -20,13 +20,10 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        {
-          email: email.trim(),
-          password: password,
-        }
-      );
+      const response = await api.post("/auth/login", {
+        email: email.trim(),
+        password: password,
+      });
 
       console.log("LOGIN RESPONSE:", response.data);
 
@@ -55,7 +52,7 @@ function Login() {
         );
       } else {
         setError(
-          "Unable to connect to the server. Make sure Spring Boot is running."
+          "Unable to connect to the server. Please try again."
         );
       }
     } finally {
@@ -99,6 +96,7 @@ function Login() {
 
             <div className="login-feature">
               <div className="feature-icon">✓</div>
+
               <div>
                 <strong>Smart Dispatching</strong>
                 <span>
@@ -109,6 +107,7 @@ function Login() {
 
             <div className="login-feature">
               <div className="feature-icon">◷</div>
+
               <div>
                 <strong>SLA Monitoring</strong>
                 <span>
@@ -119,6 +118,7 @@ function Login() {
 
             <div className="login-feature">
               <div className="feature-icon">▣</div>
+
               <div>
                 <strong>Complete Visibility</strong>
                 <span>
@@ -164,14 +164,17 @@ function Login() {
 
           </div>
 
+          {/* ERROR MESSAGE */}
           {error && (
             <div className="login-error">
+
               <span className="error-icon">!</span>
 
               <div>
                 <strong>Login failed</strong>
                 <p>{error}</p>
               </div>
+
             </div>
           )}
 
@@ -213,6 +216,7 @@ function Login() {
             <div className="form-group">
 
               <div className="password-label-row">
+
                 <label htmlFor="password">
                   Password
                 </label>
@@ -228,6 +232,7 @@ function Login() {
                 >
                   Forgot password?
                 </button>
+
               </div>
 
               <div className="input-wrapper">
@@ -311,6 +316,7 @@ function Login() {
               ) : (
                 <>
                   Sign in
+
                   <span className="button-arrow">
                     →
                   </span>

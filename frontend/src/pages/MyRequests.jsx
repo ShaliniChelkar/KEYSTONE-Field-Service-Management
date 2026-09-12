@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./MyRequests.css";
 
 function MyRequests() {
@@ -32,11 +32,11 @@ function MyRequests() {
         return;
       }
 
-      const response = await axios.get(
-        `http://localhost:8080/api/requests/customer/${customerId}`
+      const response = await api.get(
+        `/requests/customer/${customerId}`
       );
 
-      setRequests(response.data);
+      setRequests(response.data || []);
     } catch (err) {
       console.error("Error loading requests:", err);
 
@@ -46,7 +46,7 @@ function MyRequests() {
         );
       } else {
         setError(
-          "Unable to connect to the server. Make sure Spring Boot is running."
+          "Unable to connect to the server. Please try again."
         );
       }
     } finally {

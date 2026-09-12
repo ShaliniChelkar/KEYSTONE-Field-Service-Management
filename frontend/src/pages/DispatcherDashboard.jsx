@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./DispatcherDashboard.css";
-
-const API = "http://localhost:8080/api";
 
 function formatDate(date) {
   if (!date) return "Not scheduled";
@@ -99,8 +97,8 @@ export default function DispatcherDashboard() {
 
       const [requestsResponse, usersResponse] =
         await Promise.all([
-          axios.get(`${API}/requests`),
-          axios.get(`${API}/users`),
+          api.get("/requests"),
+          api.get("/users"),
         ]);
 
       setRequests(requestsResponse.data || []);
@@ -219,8 +217,8 @@ export default function DispatcherDashboard() {
         localStorage.getItem("user")
       );
 
-      await axios.put(
-        `${API}/requests/${requestId}/assign/${technicianId}`,
+      await api.put(
+        `/requests/${requestId}/assign/${technicianId}`,
         {},
         {
           headers: {
@@ -253,8 +251,8 @@ export default function DispatcherDashboard() {
         localStorage.getItem("user")
       );
 
-      await axios.put(
-        `${API}/requests/${requestId}/status/${newStatus}`,
+      await api.put(
+        `/requests/${requestId}/status/${newStatus}`,
         {},
         {
           headers: {
@@ -274,10 +272,9 @@ export default function DispatcherDashboard() {
         viewRequest &&
         Number(viewRequest.id) === Number(requestId)
       ) {
-        const updatedRequest =
-          await axios.get(
-            `${API}/requests/${requestId}`
-          );
+        const updatedRequest = await api.get(
+          `/requests/${requestId}`
+        );
 
         setViewRequest(updatedRequest.data);
       }
@@ -309,8 +306,8 @@ export default function DispatcherDashboard() {
       setError("");
       setMessage("");
 
-      await axios.put(
-        `${API}/requests/${requestId}/schedule`,
+      await api.put(
+        `/requests/${requestId}/schedule`,
         {
           scheduledAt: value,
         }
@@ -341,8 +338,8 @@ export default function DispatcherDashboard() {
       setError("");
       setMessage("");
 
-      await axios.put(
-        `${API}/requests/${requestId}/sla`,
+      await api.put(
+        `/requests/${requestId}/sla`,
         {
           slaDueAt: value,
         }

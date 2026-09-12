@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./AdminDashboard.css";
-
-const API = "http://localhost:8080/api";
 
 function getSlaStatus(request) {
   if (["COMPLETED", "CLOSED"].includes(request.status)) return "COMPLETED";
@@ -59,8 +57,8 @@ export default function AdminDashboard() {
       setError("");
 
       const [requestResponse, userResponse] = await Promise.all([
-        axios.get(`${API}/requests`),
-        axios.get(`${API}/users`),
+        api.get("/requests"),
+        api.get("/users"),
       ]);
 
       setRequests(requestResponse.data || []);
@@ -223,8 +221,8 @@ export default function AdminDashboard() {
     try {
       setAuditLoading(true);
 
-      const response = await axios.get(
-        `${API}/status-history/request/${selectedId}`
+      const response = await api.get(
+        `/status-history/request/${selectedId}`
       );
 
       setAuditHistory(response.data || []);

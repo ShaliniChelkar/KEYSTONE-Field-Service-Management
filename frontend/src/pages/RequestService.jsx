@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 import "./RequestService.css";
 
 function RequestService() {
@@ -35,10 +35,10 @@ function RequestService() {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/requests",
+      const response = await api.post(
+        "/requests",
         {
-          customerId: user?.userId || 1,
+          customerId: user?.userId || user?.id || 1,
           serviceType: formData.serviceType,
           title: formData.title,
           description: formData.description,
@@ -47,7 +47,10 @@ function RequestService() {
         }
       );
 
-      console.log("Request created successfully:", response.data);
+      console.log(
+        "Request created successfully:",
+        response.data
+      );
 
       setSuccess(
         `Service request #${response.data.id} created successfully!`
