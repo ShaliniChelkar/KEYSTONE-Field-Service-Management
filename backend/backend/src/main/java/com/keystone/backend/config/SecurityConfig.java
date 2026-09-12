@@ -33,7 +33,7 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // Public authentication endpoints
+                // Public authentication and API documentation
                 .requestMatchers(
                     "/api/auth/**",
                     "/swagger-ui/**",
@@ -41,15 +41,13 @@ public class SecurityConfig {
                     "/v3/api-docs/**"
                 ).permitAll()
 
-                // OPTIONS requests for CORS
+                // CORS preflight requests
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // For the current KEYSTONE frontend authentication flow,
-                // API access is permitted here. Role validation is handled
-                // by the application's authenticated user context.
+                // KEYSTONE API access
                 .requestMatchers("/api/**").permitAll()
 
-                // Everything else
+                // Other requests
                 .anyRequest().permitAll()
             );
 
@@ -68,7 +66,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(
             List.of(
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "https://keystone-field-service-management-flame.vercel.app"
             )
         );
 
@@ -92,7 +91,10 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source =
             new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(
+            "/**",
+            configuration
+        );
 
         return source;
     }
